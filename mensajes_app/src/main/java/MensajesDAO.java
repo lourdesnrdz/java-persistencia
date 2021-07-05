@@ -25,7 +25,7 @@ public class MensajesDAO {
             }
 
 
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
         }
     }
@@ -56,13 +56,35 @@ public class MensajesDAO {
             }
 
 
-        } catch (Exception e){
+        } catch (SQLException e){
             System.out.println(e);
         }
     }
 
     public static void borrarMensajeDB(int id_mensaje){
+        Conexion cd_connect = new Conexion();
 
+        try (Connection conexion = cd_connect.get_connection()){
+            PreparedStatement ps = null;
+            ResultSet rs = null;
+
+            try {
+                String query = "DELETE FROM mensajes WHERE id_mensaje = ?";
+                ps = conexion.prepareStatement(query);
+                ps.setInt(1, id_mensaje);
+                ps.executeUpdate();
+
+                System.out.println("el mensaje ha sido borrado");
+
+            }catch (SQLException e){
+                System.out.println("no se pudieron recuperar los mensajes");
+                System.out.println(e);
+            }
+
+
+        } catch (SQLException e){
+            System.out.println(e);
+        }
     }
 
     public static void actualizarMensajeDB(Mensajes mensaje){
