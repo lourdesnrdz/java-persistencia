@@ -41,6 +41,7 @@ public class MensajesService {
         actualizacion.setId_mensaje(id_mensaje);
 
         MensajesDAO.actualizarMensajeDB(actualizacion);
+
     }
 
 }
